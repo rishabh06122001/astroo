@@ -16,7 +16,6 @@ const userSchema=new mongoose.Schema({
     },
     otp:{
         type:Number,
-        default:1234
     },
     is_verified:{
         type:Number,
