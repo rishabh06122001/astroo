@@ -85,6 +85,8 @@ const otpVerification=async(req,res)=>{
         if (userData.otp == userotp) {
             // Update the otp field to null
             await User.updateOne({ mobile }, { $set: { otp: null } });
+            // Updating the verified 
+            await User.updateOne({mobile},{$set:{is_verified:1}})
             return res.status(200).json({
                 success: true,
                 msg: 'OTP verified successfully',
