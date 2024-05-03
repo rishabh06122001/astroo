@@ -75,7 +75,6 @@ const otpVerification=async(req,res)=>{
                 msg:"mobile is not getting from url"
             })
         }
-        console.log(userotp);
         const userData=await User.findOne({mobile})
         if(!userData){
             return res.status(400).json({
@@ -83,8 +82,9 @@ const otpVerification=async(req,res)=>{
                 msg:'mobile or Password is incorrect',
             })
         }
-        console.log(userData.otp);
-        if (+userData.otp == userotp) {
+        if (userData.otp == userotp) {
+            // Update the otp field to null
+            await User.updateOne({ mobile }, { $set: { otp: null } });
             return res.status(200).json({
                 success: true,
                 msg: 'OTP verified successfully',
